@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="NUnit" Version="3.13.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="coverlet.collector" Version="3.0.2" />
+    <PackageReference Include="wiremock.net" Version="1.4.28" />
+    <PackageReference Include="wiremock.net.openapiparser" Version="1.4.28" />
+    <PackageReference Include="wiremock.net.standalone" Version="1.4.28" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Files\" />
+    <None Remove="Files\PetStore.yaml" />
+    <None Remove="OpenAPI\" />
+    <None Remove="SOAP\" />
+    <None Remove="SOAP\Nautilus\" />
+    <None Remove="SOAP\Nautilus\DriverLicence\" />
+    <None Remove="SOAP\Nautilus\StatementRetrieval\" />
+    <None Remove="RAML\" />
+    <None Remove="OpenAPI\Customers\" />
+    <None Remove="OpenAPI\Accounts\" />
+    <None Remove="OpenAPI\Ach\" />
+    <None Remove="OpenAPI\Cards\" />
+    <None Remove="SOAP\Nautilus\StatementSearch\" />
+    <None Remove="SOAP\Nautilus\DocumentChange\" />
+    <None Remove="SOAP\Nautilus\DocumentRetrieval\" />
+    <None Remove="SOAP\Nautilus\CheckItem\" />
+    <None Remove="config.runsettings" />
+    <None Remove="SOAP\Nautilus\Deposit\" />
+    <None Remove="RAML\CohesionCustomer\" />
+    <None Remove="RAML\ValleyCoreBanking\" />
+    <None Remove="RAML\ValleyCoreBanking\AchExp\" />
+    <None Remove="RAML\ValleyCoreBanking\CardExp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
+    <Folder Include="OpenAPI\" />
+    <Folder Include="SOAP\" />
+    <Folder Include="SOAP\Nautilus\" />
+    <Folder Include="SOAP\Nautilus\DriverLicence\" />
+    <Folder Include="SOAP\Nautilus\StatementRetrieval\" />
+    <Folder Include="RAML\" />
+    <Folder Include="OpenAPI\Customers\" />
+    <Folder Include="OpenAPI\Accounts\" />
+    <Folder Include="OpenAPI\Ach\" />
+    <Folder Include="OpenAPI\Cards\" />
+    <Folder Include="SOAP\Nautilus\StatementSearch\" />
+    <Folder Include="SOAP\Nautilus\DocumentChange\" />
+    <Folder Include="SOAP\Nautilus\DocumentRetrieval\" />
+    <Folder Include="SOAP\Nautilus\CheckItem\" />
+    <Folder Include="SOAP\Nautilus\Deposit\" />
+    <Folder Include="RAML\CohesionCustomer\" />
+    <Folder Include="RAML\ValleyCoreBanking\" />
+    <Folder Include="RAML\ValleyCoreBanking\AchExp\" />
+    <Folder Include="RAML\ValleyCoreBanking\CardExp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Files\PetStore.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\PetStore.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config.runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

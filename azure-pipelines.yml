@@ -1,0 +1,74 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+      include:
+      - main
+      - release
+      - feature/*
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+  isRelease: $[eq(variables['Build.SourceBranch'], 'refs/heads/release')]
+  isFeature: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/')]
+
+stages:
+  - stage: Setup
+    jobs:
+      - job: Hello_world
+        displayName: 'Run a one-line script'
+        steps:
+          - script: echo Hello, world!
+          - script: echo $(isMain)
+          - script: echo $(isRelease)
+          - script: echo $(isFeature)
+          - script: echo $PATH
+  
+  - stage: feature_branch
+    condition: eq(variables.isFeature, 'true')
+    jobs:
+      - job: build_feature
+        displayName: 'Restore ,Build, Test'
+        steps:
+          - script: echo dotnet restore feature!
+          - script: echo dotnet build feature!
+          - script: echo dotnet test feature!
+
+  - stage: main_branch
+    condition: eq(variables.isMain, 'true')
+    jobs:
+      - job: build_main
+        displayName: 'Restore ,Build, Test'
+        steps:
+          - script: echo dotnet restore main!
+          - script: echo dotnet build main!
+  
+  - stage: release_branch
+    condition: eq(variables.isRelease, 'true')
+    jobs:
+      - job: Semantic_release
+        displayName: 'Semantic release'
+        steps:
+          - task: Npm@1
+            displayName: 'Install packages'
+            inputs:
+                command: 'install'
+          - task: Npm@1
+            displayName: 'Versioning code'
+            inputs:
+              command: 'custom'
+              customCommand: 'exec semantic-release'
+            env: 
+              GIT_CREDENTIALS: $(System.AccessToken) 
+          - script: echo $(version)
+ 
+

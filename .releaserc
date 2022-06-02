@@ -1,0 +1,115 @@
+{
+    "branches": [
+        "release"    
+    ],
+    "plugins": [
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "preset": "angular",
+                "releaseRules": [
+                    {
+                        "type": "featbc",
+                        "release": "major"
+                    },
+                    {
+                        "type": "norelease",
+                        "release": false
+                    },
+                    {
+                        "type": "feat",
+                        "release": "minor"
+                    },
+                    {
+                        "type": "fix",
+                        "release": "minor"
+                    },
+                    {
+                        "type": "perf",
+                        "release": "minor"
+                    },
+                    {
+                        "type": "docs",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "test",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "refactor",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "ci",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "build",
+                        "release": "patch"
+                    }
+                ],
+                "parserOpts": {
+                    "noteKeywords": [
+                        "BREAKING CHANGE",
+                        "BREAKING CHANGES",
+                        "Breaking change"
+                    ]
+                }
+            }
+        ],
+        [
+            "@semantic-release/release-notes-generator",
+            {
+                "preset": "conventionalCommits",
+                "parserOpts": {
+                "noteKeywords": [
+                    "BREAKING CHANGE",
+                    "BREAKING CHANGES",
+                    "BREAKING"
+                ]
+                },
+                "presetConfig": {
+                    "types": [
+                        {"type":"featbc", "section": "🚀 Features", "hidden": false}, 
+                        {"type":"build", "section": "🦊 CI/CD", "hidden": false}, 
+                        {"type":"chore", "section": "Other", "hidden": false},  
+                        {"type":"ci", "section": "🦊 CI/CD", "hidden": false},  
+                        {"type":"docs", "section": "📔 Docs", "hidden": false},
+                        {"type":"feat", "section": "🚀 Features", "hidden": false},
+                        {"type":"fix", "section": "🛠 Fixes", "hidden": false},
+                        {"type":"perf", "section": "⏩ Performance", "hidden": false},
+                        {"type":"refactor", "section": "scissors: Refactor", "hidden": false},
+                        {"type":"revert", "section": "👀 Reverts", "hidden": false},
+                        {"type":"style", "section": "💈 Style", "hidden": false},
+                        {"type":"test", "section": "🧪 Tests", "hidden": false}
+                        
+                    ],
+                    "compareUrlFormat" : "{{host}}/{{owner}}/{{repository}}/branchCompare?baseVersion=GT{{previousTag}}&targetVersion=GT{{currentTag}}&_a=commits"
+                }
+                    
+            }
+        ],
+        [
+            "@semantic-release/changelog",
+            {
+                "changelogFile": "CHANGELOG.md"
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "assets": [
+                    "CHANGELOG.md"
+                ]
+            }
+        ],
+        [
+            "semantic-release-ado",
+            {
+                "varName": "version",
+                "setOnlyOnRelease": true
+            }
+        ]
+    ]
+}

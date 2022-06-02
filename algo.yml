@@ -1,0 +1,60 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+  - stage: Setup
+    jobs:
+      - job: Hello_world
+        displayName: 'Run a one-line script'
+        steps:
+          - script: echo Hello, world!
+
+      - job: dotnet_restore
+        displayName: 'dotnet restore'
+        task: DotNetCoreCLI@2 
+        inputs:
+          command: 'restore'
+          feedsToUse: 'select'
+          vstsFeed: 'e66e5048-2227-42fb-9a5a-3fc675db1c75'
+          includeNuGetOrg: false
+
+      - job: dotnet_build
+        displayName: 'dotnet build'
+        task: DotNetCoreCLI@2
+          displayName: 'dotnet build'
+          inputs:
+            command: 'build'
+            projects: './IntegrationTest'
+            arguments: '-r win10-x64 --configuration Release /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+
+  - stage: release_branch
+    jobs:
+      - job: Install_packages
+        displayName: 'Install packages'
+        task: Npm@1
+          inputs:
+            command: 'install'
+
+      - job: Semantic_release
+        displayName: 'Semantic release'
+        task: Npm@1
+          inputs:
+            command: 'custom'
+            customCommand: 'exec semantic-release'
+          env: 
+            GIT_CREDENTIALS: $(System.AccessToken) 
+ 
+

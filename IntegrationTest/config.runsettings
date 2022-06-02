@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings> 
+  <!-- Parameters used by tests at runtime -->
+  <TestRunParameters>
+    <!-- http://localhost:8080/ or http://10.23.151.4:8080/ -->
+    <Parameter name="webApiUrl" value="http://localhost:8080/" />
+    <!-- Mac or Windows -->
+    <Parameter name="endOfLine" value="Mac" />    
+  </TestRunParameters>
+</RunSettings>
